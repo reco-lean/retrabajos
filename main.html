@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller Máquinas y Herramientas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="assets/icono.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="../index.html" target="_blank">
+            <img src="assets/logo.png" alt="Logo" width="150">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a id="salir" style="cursor: pointer;" class="nav-link">Salir</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-lg p-4 mt-0">
+                    <div class="card-body">
+                        <h2 id="titulo" class="text-center mb-4">Formulario de retrabajos</h2>
+                        <form id="form">
+                            <div class="mb-3">
+                                <label class="form-label" for="taller">Servicio:</label>
+                                <select id="servicio" class="form-select">
+                                    <option value="" disabled selected>Selecciona el servicio</option>
+                                    <option value="inspecciones">Inspecciones</option>
+                                    <option value="maquinas_herramientas">Máquinas y Herramientas</option>
+                                    <option value="grateado">Grateado y Sandblasting</option>
+                                    <option value="soldadura">Soldadura</option>
+                                    <option value="lavado">Lavado</option>
+                                </select>                                
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="taller">Taller:</label>
+                                <select id="taller" class="form-select">
+                                    <option value="" disabled selected>Selecciona un taller</option>
+                                    <option value="cilindros">Cilindros</option>
+                                    <option value="motores">Motores</option>
+                                    <option value="electrico">Eléctrico</option>
+                                    <option value="tren_potencia">Tren de Potencia</option>
+                                    <option value="maquinas_herramientas">Máquinas y Herramientas</option>
+                                </select>                                
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Componente</label>
+                                <input type="text" id="componente" class="form-control" placeholder="Ingresa el nombre del Componente">
+                            </div>
+                        
+                            <div class="mb-3">
+                                <label class="form-label">Sub-Componente</label>
+                                <input type="text" id="subComponente" class="form-control" placeholder="Ingresa el nombre del Sub-Componente">
+                            </div>
+                        
+                            <div class="mb-3">
+                                <label class="form-label">OT</label>
+                                <input type="text" id="ot" class="form-control" placeholder="Ingresa la OT">
+                            </div>
+                        
+                            <div class="mb-3">
+                                <label class="form-label">Fecha</label>
+                                <input type="date" id="fecha" class="form-control">
+                            </div>
+                        
+                            <div class="mb-3">
+                                <label class="form-label">Comentario</label>
+                                <textarea id="comentario" class="form-control" rows="4" placeholder="Escribe el Comentario..."></textarea>
+                            </div>
+                        
+                            <button type="submit" class="btn btn-custom w-100">Enviar</button>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalConfirmacion" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color: black;">Confirmación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body" style="color: black;">
+                    <p>Formulario enviado correctamente.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnAceptar">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="form.js"></script>
+</body>
+</html>
