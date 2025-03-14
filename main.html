@@ -31,7 +31,7 @@
                         <h2 id="titulo" class="text-center mb-4">Formulario de retrabajos</h2>
                         <form id="form">
                             <div class="mb-3">
-                                <label class="form-label" for="taller">Servicio:</label>
+                                <label class="form-label requerido" for="taller">Servicio:</label>
                                 <select id="servicio" class="form-select">
                                     <option value="" disabled selected>Selecciona el servicio</option>
                                     <option value="inspecciones">Inspecciones</option>
@@ -42,7 +42,7 @@
                                 </select>                                
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="taller">Taller:</label>
+                                <label class="form-label requerido" for="taller">Taller:</label>
                                 <select id="taller" class="form-select">
                                     <option value="" disabled selected>Selecciona un taller</option>
                                     <option value="cilindros">Cilindros</option>
@@ -54,27 +54,27 @@
                             </div>
                             
                             <div class="mb-3">
-                                <label class="form-label">Componente</label>
-                                <input type="text" id="componente" class="form-control" placeholder="Ingresa el nombre del Componente">
+                                <label class="form-label requerido">Componente:</label>
+                                <input style="text-transform: uppercase;" type="text" id="componente" class="form-control" placeholder="Ingresa el nombre del Componente">
                             </div>
                         
                             <div class="mb-3">
-                                <label class="form-label">Sub-Componente</label>
-                                <input type="text" id="subComponente" class="form-control" placeholder="Ingresa el nombre del Sub-Componente">
+                                <label class="form-label">Sub-Componente:</label>
+                                <input style="text-transform: uppercase;"  type="text" id="subComponente" class="form-control" placeholder="Ingresa el nombre del Sub-Componente">
                             </div>
                         
                             <div class="mb-3">
-                                <label class="form-label">OT</label>
-                                <input type="text" id="ot" class="form-control" placeholder="Ingresa la OT">
+                                <label class="form-label requerido">OT:</label>
+                                <input style="text-transform: uppercase;"  type="text" id="ot" class="form-control" placeholder="Ingresa la OT">
                             </div>
                         
                             <div class="mb-3">
-                                <label class="form-label">Fecha</label>
+                                <label class="form-label requerido">Fecha:</label>
                                 <input type="date" id="fecha" class="form-control">
                             </div>
                         
                             <div class="mb-3">
-                                <label class="form-label">Comentario</label>
+                                <label class="form-label">Comentario asociado al defecto:</label>
                                 <textarea id="comentario" class="form-control" rows="4" placeholder="Escribe el Comentario..."></textarea>
                             </div>
                         

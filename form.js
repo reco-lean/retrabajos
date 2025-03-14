@@ -50,12 +50,6 @@ document.addEventListener("DOMContentLoaded", function () {
             limpiarError(componente);
         }
 
-        if (subComponente.value.trim() === "") {
-            mostrarError(subComponente, "El campo Sub-Componente es obligatorio.");
-            isValid = false;
-        } else {
-            limpiarError(subComponente);
-        }
 
         if (ot.value.trim() === "") {
             mostrarError(ot, "El OT es obligatorio.");
@@ -69,13 +63,6 @@ document.addEventListener("DOMContentLoaded", function () {
             isValid = false;
         } else {
             limpiarError(fecha);
-        }
-
-        if (comentario.value.trim().length < 7) {
-            mostrarError(comentario, "El comentario debe tener al menos 7 caracteres.");
-            isValid = false;
-        } else {
-            limpiarError(comentario);
         }
 
         if (isValid) {
