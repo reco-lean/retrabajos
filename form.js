@@ -50,6 +50,12 @@ document.addEventListener("DOMContentLoaded", function () {
             limpiarError(componente);
         }
 
+        if (subComponente.value.trim() === "") {
+            mostrarError(subComponente, "El campo Parte/Subcomponente es obligatorio.");
+            isValid = false;
+        } else {
+            limpiarError(subComponente);
+        }
 
         if (ot.value.trim() === "") {
             mostrarError(ot, "El OT es obligatorio.");
