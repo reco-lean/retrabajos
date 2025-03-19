@@ -28,6 +28,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const ot = document.getElementById("ot");
         const fecha = document.getElementById("fecha");
         const comentario = document.getElementById("comentario");
+        const tipo_desperdicio = document.getElementById("tipo_desperdicio");
+
 
         if (servicio.value === "") {
             mostrarError(servicio, "Debes seleccionar un servicio.");
@@ -48,6 +50,13 @@ document.addEventListener("DOMContentLoaded", function () {
             isValid = false;
         } else {
             limpiarError(componente);
+        }
+
+        if (tipo_desperdicio.value.trim() === "") {
+            mostrarError(tipo_desperdicio, "El campo Tipo de desperdicio es obligatorio.");
+            isValid = false;
+        } else {
+            limpiarError(tipo_desperdicio);
         }
 
         if (subComponente.value.trim() === "") {
@@ -83,6 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 ot: ot.value,
                 fecha: fecha.value,
                 comentario: comentario.value,
+                tipo_desperdicio: tipo_desperdicio.value,
                 accessToken
             };
 
