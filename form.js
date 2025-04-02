@@ -6,31 +6,44 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-
     function salir () {
         sessionStorage.removeItem("accessToken");
-        sessionStorage.removeItem("refreshToken");
         window.location.href = "index.html";
         return;
     }
 
-    document.querySelector("#salir").addEventListener("click", salir)
+    document.querySelector("#salir").addEventListener("click", salir);
+
+    const servicio = document.getElementById("servicio");
+    const taller = document.getElementById("taller");
+    const componente = document.getElementById("componente");
+    const subComponente = document.getElementById("subComponente");
+    const ot = document.getElementById("ot");
+    const fecha = document.getElementById("fecha");
+    const comentario = document.getElementById("comentario");
+    const tipo_desperdicio = document.getElementById("tipo_desperdicio");
+    const tiempo = document.getElementById("tiempo");
+    const divEquipo = document.getElementById("campoEquipo")
+    const inputEquipo = document.getElementById("equipo");
+
+
+    servicio.addEventListener("change", (e) => {
+        console.log(equipo)
+        if(e.target.value === "Mantenimiento") {
+            divEquipo.classList.remove("d-none");
+        }
+        else {
+            divEquipo.classList.add("d-none");
+        }
+    })
+
 
     const form = document.getElementById("form");
     form.addEventListener("submit", async function (event) {
         event.preventDefault();
 
         let isValid = true;
-        const servicio = document.getElementById("servicio");
-        const taller = document.getElementById("taller");
-        const componente = document.getElementById("componente");
-        const subComponente = document.getElementById("subComponente");
-        const ot = document.getElementById("ot");
-        const fecha = document.getElementById("fecha");
-        const comentario = document.getElementById("comentario");
-        const tipo_desperdicio = document.getElementById("tipo_desperdicio");
-
-
+        
         if (servicio.value === "") {
             mostrarError(servicio, "Debes seleccionar un servicio.");
             isValid = false;
@@ -93,12 +106,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 fecha: fecha.value,
                 comentario: comentario.value,
                 tipo_desperdicio: tipo_desperdicio.value,
-                accessToken
+                accessToken,
+                tiempo: tiempo.value,
+                equipo: inputEquipo.value
             };
 
             try {
                 const response = await fetch(
                     "https://prod-218.westeurope.logic.azure.com:443/workflows/27c42dececd441429944ef882dc5d628/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=zmHAVvXajH2oAL66V3RhCaTW_Wpyp_6U6tT1INbIVf4",
+                    
                     {
                         method: "POST",
                         headers: {
@@ -113,17 +129,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
                 if (!response.ok) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Algo salio mal!"
+                    });
                     throw new Error("Error en la solicitud. Verifique los datos e intente nuevamente.");
+                    
                 }
                 else {
-                    if (modalElement) {
-                        const modalConfirmacion = new bootstrap.Modal(modalElement);
-                        modalConfirmacion.show();
-        
-                        document.getElementById("btnAceptar").addEventListener("click", function () {
-                            window.location.reload();
-                        });
-                    }
+                    Swal.fire({
+                        title: "Muda registrada!",
+                        icon: "success",
+                    }).then(() => window.location.reload())
                 }
 
                 

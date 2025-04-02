@@ -32,18 +32,21 @@
                         <form id="form">
                             <div class="mb-3">
                                 <label class="form-label requerido" for="taller">Servicio:</label>
-                                <select id="servicio" class="form-select">
+                                <select style="text-transform: uppercase;" id="servicio" class="form-select">
                                     <option value="" disabled selected>Selecciona el servicio</option>
                                     <option value="Inspecciones">Inspecciones</option>
                                     <option value="Máquinas y Herramientas">Máquinas y Herramientas</option>
                                     <option value="Grateado y Sandblasting">Grateado y Sandblasting</option>
                                     <option value="Soldadura">Soldadura</option>
                                     <option value="Lavado">Lavado</option>
+                                    <option value="Mantenimiento">Mantenimiento</option>
+                                    <option value="Herramentería">Herramentería</option>
+                                    <option value="Alistamiento y puenta grúa">Alistamiento y puenta grúa</option>
                                 </select>                                
                             </div>
                             <div class="mb-3">
                                 <label class="form-label requerido" for="taller">Taller:</label>
-                                <select id="taller" class="form-select">
+                                <select style="text-transform: uppercase;" id="taller" class="form-select">
                                     <option value="" disabled selected>Selecciona un taller</option>
                                     <option value="Cilindros">Cilindros</option>
                                     <option value="Motores">Motores</option>
@@ -55,7 +58,7 @@
 
                             <div class="mb-3">
                                 <label class="form-label requerido" for="tipo_desperdicio">Tipo de desperdicio:</label>
-                                <select id="tipo_desperdicio" class="form-select">
+                                <select style="text-transform: uppercase;"  id="tipo_desperdicio" class="form-select">
                                     <option value="" disabled selected>Selecciona un tipo de desperdicio</option>
                                     <option value="Defecto">Defecto</option>
                                     <option value="Sobreproceso">Sobreproceso</option>
@@ -75,7 +78,12 @@
                                 <label class="form-label requerido">Parte/Subcomponente:</label>
                                 <input style="text-transform: uppercase;"  type="text" id="subComponente" class="form-control" placeholder="Ingresa el nombre del Sub-Componente">
                             </div>
-                        
+                            
+                            <div class="mb-3 d-none" id="campoEquipo">
+                                <label class="form-label">Equipo:</label>
+                                <input style="text-transform: uppercase;" type="text" id="equipo" class="form-control" placeholder="Ingresa equipo">
+                            </div>
+
                             <div class="mb-3">
                                 <label class="form-label requerido">OT:</label>
                                 <input style="text-transform: uppercase;"  type="text" id="ot" class="form-control" placeholder="Ingresa la OT">
@@ -86,6 +94,11 @@
                                 <input type="date" id="fecha" class="form-control">
                             </div>
                         
+                            <div class="mb-3">
+                                <label class="form-label">Tiempo (en horas):</label>
+                                <input type="number" id="tiempo" class="form-control">
+                            </div>
+
                             <div class="mb-3">
                                 <label class="form-label">Comentario asociado al defecto:</label>
                                 <textarea id="comentario" class="form-control" rows="4" placeholder="Escribe el Comentario..."></textarea>
@@ -99,26 +112,8 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="modalConfirmacion" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" style="color: black;">Confirmación</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body" style="color: black;">
-                    <p>Formulario enviado correctamente.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="btnAceptar">Aceptar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="form.js"></script>
 </body>
 </html>
