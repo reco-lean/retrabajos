@@ -44,9 +44,9 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("submit", async function (event) {
         event.preventDefault();
 
-        spinner.style.display = "inline-block";
-        btnEnviar.disabled = true;
-        let isValid = true;
+        let isValid = true; 
+
+        
         
         if (servicio.value === "") {
             mostrarError(servicio, "Debes seleccionar un servicio.");
@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (isValid) {
-            const json = {
+          const json = {
                 servicio: servicio.value,
                 taller: taller.value,
                 componente: componente.value,
@@ -110,7 +110,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 accessToken,
                 tiempo: tiempo.value,
                 equipo: inputEquipo.value
-            };
+          }
+          btnEnviar.disabled = true;
+          spinner.style.display = "inline-block";
+        }
+        
 
     
             const response = await fetch(
@@ -145,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             
         }
-    });
+    );
 
     function mostrarError(input, mensaje) {
         limpiarError(input);
