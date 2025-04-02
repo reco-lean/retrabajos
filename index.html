@@ -6,6 +6,15 @@
     <title>Iniciar Sesión</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .spinner-border {
+            display: none;
+            width: 1rem;
+            height: 1rem;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -23,14 +32,17 @@
                 <div class="card shadow-lg p-4">
                     <div class="card-body text-left">
                         <h2 class="mb-4">Inicia Sesión</h2>
-                        <form>
+                        <div id="alertaError" class="alert alert-danger d-none" role="alert">
+                            Credenciales incorrectas. Inténtelo de nuevo.
+                        </div>
+                        <form id="loginForm">
                             <div class="form-outline mb-4">
-                                <input type="text" id="cedula" class="form-control" placeholder="Digite su cedula" required />
+                                <input type="text" id="cedula" class="form-control" placeholder="Digite su cédula" required />
                             </div>
-                            
-                            <div class="d-flex justify-content-between mb-4">
-                            </div>
-                            <button type="submit" class="btn btn-custom btn-block w-100">Iniciar Sesión</button>
+                            <button type="submit" class="btn btn-custom btn-block w-100" id="btnLogin">
+                                Iniciar Sesión
+                                <span class="spinner-border spinner-border-sm" id="spinner"></span>
+                            </button>
                         </form>
                     </div>
                 </div>
