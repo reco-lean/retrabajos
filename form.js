@@ -44,7 +44,6 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("submit", async function (event) {
         event.preventDefault();
 
-        console.log(btnEnviar, spinner)
         spinner.style.display = "inline-block";
         btnEnviar.disabled = true;
         let isValid = true;
