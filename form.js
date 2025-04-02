@@ -25,10 +25,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const tiempo = document.getElementById("tiempo");
     const divEquipo = document.getElementById("campoEquipo")
     const inputEquipo = document.getElementById("equipo");
+    const btnEnviar = document.getElementById("btnEnviar");
+    const spinner = document.getElementById("spinner");
+
 
 
     servicio.addEventListener("change", (e) => {
-        console.log(equipo)
         if(e.target.value === "Mantenimiento") {
             divEquipo.classList.remove("d-none");
         }
@@ -42,6 +44,9 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("submit", async function (event) {
         event.preventDefault();
 
+        console.log(btnEnviar, spinner)
+        spinner.style.display = "inline-block";
+        btnEnviar.disabled = true;
         let isValid = true;
         
         if (servicio.value === "") {
@@ -80,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (ot.value.trim() === "") {
-            mostrarError(ot, "El OT es obligatorio.");
+            mostrarError(ot, "La OT es obligatoria.");
             isValid = false;
         } else {
             limpiarError(ot);
@@ -94,9 +99,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (isValid) {
-            const modalElement = document.getElementById("modalConfirmacion");
-            
-
             const json = {
                 servicio: servicio.value,
                 taller: taller.value,
@@ -111,8 +113,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 equipo: inputEquipo.value
             };
 
-            try {
-                const response = await fetch(
+    
+            const response = await fetch(
                     "https://prod-218.westeurope.logic.azure.com:443/workflows/27c42dececd441429944ef882dc5d628/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=zmHAVvXajH2oAL66V3RhCaTW_Wpyp_6U6tT1INbIVf4",
                     
                     {
@@ -124,18 +126,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 );
 
-                if (response.status === 403) {
-                    salir();
-                }
+                
 
                 if (!response.ok) {
                     Swal.fire({
                         icon: "error",
                         title: "Oops...",
                         text: "Algo salio mal!"
+                    }).then(() => {
+                      if (response.status === 403) salir();
+                      else window.location.reload();
                     });
-                    throw new Error("Error en la solicitud. Verifique los datos e intente nuevamente.");
-                    
                 }
                 else {
                     Swal.fire({
@@ -143,12 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         icon: "success",
                     }).then(() => window.location.reload())
                 }
-
-                
-
-            } catch (error) {
-                console.error(error.message);
-            }
+            
         }
     });
 
