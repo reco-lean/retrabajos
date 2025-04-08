@@ -29,127 +29,114 @@ document.addEventListener("DOMContentLoaded", function () {
     const spinner = document.getElementById("spinner");
 
 
-
     servicio.addEventListener("change", (e) => {
-        if(e.target.value === "Mantenimiento") {
-            divEquipo.classList.remove("d-none");
-        }
-        else {
-            divEquipo.classList.add("d-none");
-        }
-    })
+      if(e.target.value === "Mantenimiento") {
+          divEquipo.classList.remove("d-none");
+      }
+      else {
+          divEquipo.classList.add("d-none");
+      }
+    });
 
 
     const form = document.getElementById("form");
     form.addEventListener("submit", async function (event) {
-        event.preventDefault();
-
-        let isValid = true; 
-
+      event.preventDefault();
+      let isValid = true; 
         
-        
-        if (servicio.value === "") {
-            mostrarError(servicio, "Debes seleccionar un servicio.");
-            isValid = false;
-        } else {
-            limpiarError(servicio);
-        }
+      if (servicio.value === "") {
+        mostrarError(servicio, "Debes seleccionar un servicio.");
+        isValid = false;
+      } else {
+        limpiarError(servicio);
+      }
 
-        if (taller.value === "") {
-            mostrarError(taller, "Debes seleccionar un taller.");
-            isValid = false;
-        } else {
-            limpiarError(taller);
-        }
+      if (taller.value === "") {
+        mostrarError(taller, "Debes seleccionar un taller.");
+        isValid = false;
+      } else {
+        limpiarError(taller);
+      }
 
-        if (componente.value.trim() === "") {
-            mostrarError(componente, "El campo Componente es obligatorio.");
-            isValid = false;
-        } else {
-            limpiarError(componente);
-        }
+      if (componente.value.trim() === "") {
+        mostrarError(componente, "El campo Componente es obligatorio.");
+        isValid = false;
+      } else {
+        limpiarError(componente);
+      }
 
-        if (tipo_desperdicio.value.trim() === "") {
-            mostrarError(tipo_desperdicio, "El campo Tipo de desperdicio es obligatorio.");
-            isValid = false;
-        } else {
-            limpiarError(tipo_desperdicio);
-        }
+      if (tipo_desperdicio.value.trim() === "") {
+        mostrarError(tipo_desperdicio, "El campo Tipo de desperdicio es obligatorio.");
+        isValid = false;
+      } else {
+        limpiarError(tipo_desperdicio);
+      }
 
-        if (subComponente.value.trim() === "") {
-            mostrarError(subComponente, "El campo Parte/Subcomponente es obligatorio.");
-            isValid = false;
-        } else {
-            limpiarError(subComponente);
-        }
+    	if (subComponente.value.trim() === "") {
+        mostrarError(subComponente, "El campo Parte/Subcomponente es obligatorio.");
+        isValid = false;
+      } else {
+        limpiarError(subComponente);
+      }
 
-        if (ot.value.trim() === "") {
-            mostrarError(ot, "La OT es obligatoria.");
-            isValid = false;
-        } else {
-            limpiarError(ot);
-        }
+      if (ot.value.trim() === "") {
+        mostrarError(ot, "La OT es obligatoria.");
+        isValid = false;
+      } else {
+        limpiarError(ot);
+      }
 
-        if (fecha.value === "") {
-            mostrarError(fecha, "Debes seleccionar una fecha.");
-            isValid = false;
-        } else {
-            limpiarError(fecha);
-        }
+      if (fecha.value === "") {
+        mostrarError(fecha, "Debes seleccionar una fecha.");
+        isValid = false;
+      } else {
+        limpiarError(fecha);
+      }
 
-        if (isValid) {
-          const json = {
-                servicio: servicio.value,
-                taller: taller.value,
-                componente: componente.value,
-                subcomponente: subComponente.value,
-                ot: ot.value,
-                fecha: fecha.value,
-                comentario: comentario.value,
-                tipo_desperdicio: tipo_desperdicio.value,
-                accessToken,
-                tiempo: tiempo.value,
-                equipo: inputEquipo.value
+      if (isValid) {
+      	const json = {
+          servicio: servicio.value,
+          taller: taller.value,
+          componente: componente.value,
+          subcomponente: subComponente.value,
+          ot: ot.value,
+          fecha: fecha.value,
+          comentario: comentario.value,
+          tipo_desperdicio: tipo_desperdicio.value,
+          accessToken,
+          tiempo: tiempo.value,
+          equipo: inputEquipo.value
+        }
+        btnEnviar.disabled = true;
+        spinner.style.display = "inline-block";
+        const response = await fetch( "https://prod-218.westeurope.logic.azure.com:443/workflows/27c42dececd441429944ef882dc5d628/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=zmHAVvXajH2oAL66V3RhCaTW_Wpyp_6U6tT1INbIVf4",   
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(json)
           }
-          btnEnviar.disabled = true;
-          spinner.style.display = "inline-block";
+        );
+        if (!response.ok) {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Algo salio mal!"
+          }).then(() => {
+            if (response.status === 403) salir();
+            else window.location.reload();
+          });
+        } else {
+          Swal.fire({
+            title: "Muda registrada!",
+            icon: "success",
+          }).then(() => window.location.reload())
         }
-        
-
-    
-            const response = await fetch(
-                    "https://prod-218.westeurope.logic.azure.com:443/workflows/27c42dececd441429944ef882dc5d628/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=zmHAVvXajH2oAL66V3RhCaTW_Wpyp_6U6tT1INbIVf4",
-                    
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify(json)
-                    }
-                );
-
-                
-
-                if (!response.ok) {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Algo salio mal!"
-                    }).then(() => {
-                      if (response.status === 403) salir();
-                      else window.location.reload();
-                    });
-                }
-                else {
-                    Swal.fire({
-                        title: "Muda registrada!",
-                        icon: "success",
-                    }).then(() => window.location.reload())
-                }
+      }
             
-        }
-    );
+    }
+);
 
     function mostrarError(input, mensaje) {
         limpiarError(input);
