@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         btnEnviar.disabled = true;
         spinner.style.display = "inline-block";
-        const response = await fetch( "https://prod-218.westeurope.logic.azure.com:443/workflows/27c42dececd441429944ef882dc5d628/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=zmHAVvXajH2oAL66V3RhCaTW_Wpyp_6U6tT1INbIVf4",   
+        const response = await fetch( "https://defaultc9a8e948bf0d4f8d9e9d551ac1b45a.48.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/27c42dececd441429944ef882dc5d628/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=ckXIqwdMVb_Vgl2h-ufh1NHdeH6_WGrA_KdUZUIPEKA",   
           {
             method: "POST",
             headers: {
@@ -155,3 +155,4 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 });
+
