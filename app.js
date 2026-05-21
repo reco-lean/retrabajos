@@ -32,9 +32,11 @@ document.addEventListener("DOMContentLoaded", function () {
     ];
     
     // Opciones técnicas separadas para QPSuite
+    // Opciones técnicas separadas para QPSuite
     const opcionesQPSuite = [
         "Predecesora sin cierre en sistema", 
-        "Orden de Trabajo no liberada / Inexistente", 
+        "Orden de Trabajo no liberada en sistema", 
+        "OT no suministrada físicamente por Programación", // NUEVA OPCIÓN
         "Falla de conectividad / Sistema no disponible",
         "Otra incidencia de software"
     ];
@@ -50,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
             inputEquipo.value = "";
         }
 
+        
         // 2. Manejo de Opciones, SubComponente y Tiempo
         tipo_desperdicio.innerHTML = '<option value="" disabled selected>Seleccione un parámetro</option>';
 
@@ -86,6 +89,19 @@ document.addEventListener("DOMContentLoaded", function () {
             opcionesEstandar.forEach(opt => {
                 tipo_desperdicio.innerHTML += `<option value="${opt}">${opt}</option>`;
             });
+        }
+    });
+
+    // Lógica para autocompletar OT si no se la entregaron al técnico
+    tipo_desperdicio.addEventListener("change", (e) => {
+        if (e.target.value === "OT no suministrada físicamente por Programación") {
+            ot.value = "PENDIENTE";
+            ot.readOnly = true;
+            ot.classList.add("text-danger"); // La pone en rojo visualmente
+        } else {
+            ot.value = "";
+            ot.readOnly = false;
+            ot.classList.remove("text-danger");
         }
     });
 
