@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro OT Modular</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style> body { font-family: 'Roboto', sans-serif; } </style>
+</head>
+<body class="bg-gray-50 flex justify-center py-10">
+
+  <main class="w-full max-w-[700px] bg-white p-8 border border-gray-200 shadow-sm rounded">
+    <h2 class="text-xl font-bold mb-6 text-center border-b-4 border-[#FFC528] pb-2">REGISTRO DE EVIDENCIAS</h2>
+    
+    <form id="mainForm" class="flex flex-col gap-5">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <input id="ot" type="text" placeholder="ORDEN DE TRABAJO" required class="p-3 border rounded uppercase focus:ring-2 focus:ring-[#FFC528] outline-none">
+        <input id="numeroComponente" type="text" placeholder="NÚMERO DE COMPONENTE" required class="p-3 border rounded uppercase focus:ring-2 focus:ring-[#FFC528] outline-none">
+        
+        <select id="workshop" required class="p-3 border rounded uppercase focus:ring-2 focus:ring-[#FFC528] outline-none">
+          <option value="">SELECCIONE TALLER...</option>
+          <option value="CILINDROS">CILINDROS</option>
+          <option value="MOTORES">MOTORES</option>
+          <option value="RODAJE">RODAJE</option>
+          <option value="COMPONENTES MENORES">COMPONENTES MENORES</option>
+          <option value="TREN DE POTENCIA">TREN DE POTENCIA</option>
+
+        </select>
+        
+        <select id="component" required class="p-3 border rounded uppercase focus:ring-2 focus:ring-[#FFC528] outline-none">
+          <option value="">SELECCIONE COMPONENTE...</option>
+        </select>
+      </div>
+
+      <div id="dynamicArea" class="mt-4 border-t-2 border-dashed border-gray-300 pt-4">
+        </div>
+
+      <button type="submit" class="mt-6 p-3 bg-[#FFC528] hover:bg-[#EDAF18] font-bold rounded transition-colors">ENVIAR DATOS</button>
+    </form>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="index.js"></script>
+</body>
+</html>
