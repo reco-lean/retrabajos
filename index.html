@@ -1,46 +1,360 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Registro OT Modular</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style> body { font-family: 'Roboto', sans-serif; } </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Registro de Incidencias y Desviaciones</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-50 flex justify-center py-10">
+<body>
+    <div class="overlay"></div>
 
-  <main class="w-full max-w-[700px] bg-white p-8 border border-gray-200 shadow-sm rounded">
-    <h2 class="text-xl font-bold mb-6 text-center border-b-4 border-[#FFC528] pb-2">REGISTRO DE EVIDENCIAS</h2>
-    
-    <form id="mainForm" class="flex flex-col gap-5">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <input id="ot" type="text" placeholder="ORDEN DE TRABAJO" required class="p-3 border rounded uppercase focus:ring-2 focus:ring-[#FFC528] outline-none">
-        <input id="numeroComponente" type="text" placeholder="NÚMERO DE COMPONENTE" required class="p-3 border rounded uppercase focus:ring-2 focus:ring-[#FFC528] outline-none">
-        
-        <select id="workshop" required class="p-3 border rounded uppercase focus:ring-2 focus:ring-[#FFC528] outline-none">
-          <option value="">SELECCIONE TALLER...</option>
-          <option value="CILINDROS">CILINDROS</option>
-          <option value="MOTORES">MOTORES</option>
-          <option value="RODAJE">RODAJE</option>
-          <option value="COMPONENTES MENORES">COMPONENTES MENORES</option>
-          <option value="TREN DE POTENCIA">TREN DE POTENCIA</option>
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                
+                <div class="glass-card p-4 p-md-5">
+                    <div class="text-center mb-4 header-logo">
+                        <h2 class="fw-bold text-white mb-0">CONTROL OPERATIVO</h2>
+                        <p class="text-accent small text-uppercase tracking-wide">Registro de Desviaciones e Incidencias</p>
+                    </div>
 
-        </select>
-        
-        <select id="component" required class="p-3 border rounded uppercase focus:ring-2 focus:ring-[#FFC528] outline-none">
-          <option value="">SELECCIONE COMPONENTE...</option>
-        </select>
-      </div>
+                    <form id="form">
+                        <div class="mb-3">
+                            <label class="form-label requerido">Clasificación del Servicio:</label>
+                            <select id="servicio" class="form-select custom-select">
+                                <option value="" disabled selected>Seleccione la clasificación</option>
+                                <option value="QPSuite">Gestión QPSuite / Trazabilidad</option>
+                                <option value="Inspecciones">Inspecciones</option>
+                                <option value="Máquinas y Herramientas">Máquinas y Herramientas</option>
+                                <option value="Grateado y Sandblasting">Grateado y Sandblasting</option>
+                                <option value="Soldadura">Soldadura</option>
+                                <option value="Lavado">Lavado</option>
+                                <option value="Mantenimiento">Mantenimiento</option>
+                                <option value="Herramentería">Herramentería</option>
+                                <option value="Alistamiento">Programación y alistamiento</option>
+                                <option value="Puente grúa">Puente grúa</option>
+                                <option value="Montacargas">Montacargas</option>
+                                <option value="Devoluciones">Devoluciones</option>
+                                <option value="Pedido adicional">Pedido adicional</option>
+                                <option value="Planeación">Planeación</option>
+                                <option value="Ejecución">Ejecución</option>
+                            </select>                               
+                        </div>
 
-      <div id="dynamicArea" class="mt-4 border-t-2 border-dashed border-gray-300 pt-4">
+                        <div class="mb-3">
+                            <label class="form-label requerido">Centro de Trabajo / Área:</label>
+                            <select id="taller" class="form-select custom-select">
+                                <option value="" disabled selected>Seleccione el área de ejecución</option>
+                                <option value="Cilindros">Cilindros</option>
+                                <option value="Motores">Motores</option>
+                                <option value="Eléctrico">Eléctrico</option>
+                                <option value="Tren de Potencia">Tren de Potencia</option>
+                                <option value="Máquinas y Herramientas">Máquinas y Herramientas</option>
+                            </select>                               
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label requerido" id="labelClasificacion">Categoría de la Incidencia:</label>
+                            <select id="tipo_desperdicio" class="form-select custom-select">
+                                <option value="" disabled selected>Seleccione primero un servicio</option>
+                            </select>                               
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label requerido">Componente Principal:</label>
+                            <select id="componenteSelect" class="form-select custom-select d-none">
+                                <option value="" disabled selected>Despliegue para seleccionar</option>
+                                <option value="Freno de camión">Freno de camión</option>
+                                <option value="Componente menor de motor">Componente menor de motor</option>
+                                <option value="Motor de camión">Motor de camión</option>
+                                <option value="Mando final de camión">Mando final de camión</option>
+                                <option value="Suspensión frontal de camión">Suspensión frontal de camión</option>
+                                <option value="Suspensión trasera de camión">Suspensión trasera de camión</option>
+                                <option value="Rueda de suspensión frontal de camión">Rueda de suspensión frontal de camión</option>
+                                <option value="Motor de tractor de llantas">Motor de tractor de llantas</option>
+                                <option value="Mando final de tractor de llantas">Mando final de tractor de llantas</option>
+                                <option value="Motor de tractor de oruga">Motor de tractor de oruga</option>
+                                <option value="Mando final de tractor de oruga">Mando final de tractor de oruga</option>
+                                <option value="Motor de motoniveladora">Motor de motoniveladora</option>
+                                <option value="Motor de tanquero">Motor de tanquero</option>
+                                <option value="Mando final de tanquero">Mando final de tanquero</option>
+                                <option value="Suspensión frontal de tanquero">Suspensión frontal de tanquero</option>
+                            </select>
+                            <input type="text" id="componenteInput" class="form-control custom-input" placeholder="Ej. Escriba el componente principal">
+                        </div>
+                    
+                        <div class="mb-3" id="campoSubComponente">
+                            <label class="form-label requerido">Subconjunto / Parte:</label>
+                            <input type="text" id="subComponente" class="form-control custom-input" placeholder="Ej. Bloque principal, Carter, Culata">
+                        </div>
+                        
+                        <div class="mb-3 d-none" id="campoEquipo">
+                            <label class="form-label">Identificación del Equipo:</label>
+                            <input type="text" id="equipo" class="form-control custom-input" placeholder="ID / Serial del equipo">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <label class="form-label requerido">Orden de Trabajo:</label>
+                                <input type="text" id="ot" class="form-control custom-input text-uppercase" placeholder="OT-">
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label class="form-label requerido">Fecha:</label>
+                                <input type="date" id="fecha" class="form-control custom-input">
+                            </div>
+                        </div>
+                    
+                        <div class="mb-3" id="campoTiempo">
+                            <label class="form-label">Desviación en Horas (Tiempo improductivo):</label>
+                            <input type="number" id="tiempo" step="0.1" class="form-control custom-input" placeholder="Ej. 1.5">
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label" id="labelComentario">Detalle Técnico / Observaciones:</label>
+                            <textarea id="comentario" class="form-control custom-input" rows="3" placeholder="Describa el contexto operativo y el impacto de la desviación..."></textarea>
+                        </div>
+                    
+                        <button id="btnEnviar" type="submit" class="btn btn-primary-custom w-100 py-3 fw-bold">
+                            DOCUMENTAR INCIDENCIA
+                            <span class="spinner-border spinner-border-sm ms-2" id="spinner" style="display:none;"></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
+    </div>
 
-      <button type="submit" class="mt-6 p-3 bg-[#FFC528] hover:bg-[#EDAF18] font-bold rounded transition-colors">ENVIAR DATOS</button>
-    </form>
-  </main>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const servicio = document.getElementById("servicio");
+            const taller = document.getElementById("taller");
+            const tipo_desperdicio = document.getElementById("tipo_desperdicio");
+            const componenteSelect = document.getElementById("componenteSelect");
+            const componenteInput = document.getElementById("componenteInput");
+            const subComponente = document.getElementById("subComponente");
+            const ot = document.getElementById("ot");
+            const fecha = document.getElementById("fecha");
+            const comentario = document.getElementById("comentario");
+            const tiempo = document.getElementById("tiempo");
+            const inputEquipo = document.getElementById("equipo");
+            
+            // Contenedores y Labels para lógica visual
+            const campoSubComponente = document.getElementById("campoSubComponente");
+            const campoEquipo = document.getElementById("campoEquipo");
+            const campoTiempo = document.getElementById("campoTiempo");
+            const labelClasificacion = document.getElementById("labelClasificacion");
+            const labelComentario = document.getElementById("labelComentario");
 
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="index.js"></script>
+            const btnEnviar = document.getElementById("btnEnviar");
+            const form = document.getElementById("form");
+
+            // Llenar fecha actual por defecto
+            fecha.valueAsDate = new Date();
+
+            // ==========================================
+            // LÓGICA DE INTERFAZ DINÁMICA
+            // ==========================================
+            const opcionesEstandar = [
+                "Defecto en material", "Sobreproceso", "Sobreproducción", 
+                "Tiempos de Espera", "Exceso de Inventario", "Transporte innecesario"
+            ];
+            
+            // Opciones técnicas separadas para QPSuite
+            const opcionesQPSuite = [
+                "Predecesora sin cierre en sistema", 
+                "Orden de Trabajo no liberada en sistema", 
+                "OT no suministrada físicamente por Programación",
+                "Falla de conectividad / Sistema no disponible",
+                "Otra incidencia de software"
+            ];
+
+            servicio.addEventListener("change", (e) => {
+                const val = e.target.value;
+                
+                // 1. Manejo del Equipo (Solo Mantenimiento)
+                if (val === "Mantenimiento") {
+                    campoEquipo.classList.remove("d-none");
+                } else {
+                    campoEquipo.classList.add("d-none");
+                    inputEquipo.value = "";
+                }
+
+                // 2. Manejo de Opciones, Componente, SubComponente y Tiempo
+                tipo_desperdicio.innerHTML = '<option value="" disabled selected>Seleccione un parámetro</option>';
+
+                if (val === "QPSuite") {
+                    // Modo QPSuite
+                    labelClasificacion.innerText = "Causa Raíz del Bloqueo:";
+                    campoSubComponente.classList.add("d-none");
+                    subComponente.value = "No Aplica";
+                    
+                    // Alternar a Select de Componentes
+                    componenteSelect.classList.remove("d-none");
+                    componenteInput.classList.add("d-none");
+                    componenteInput.value = ""; // Limpia el input por si escribieron algo antes
+                    
+                    // Ocultar tiempo
+                    campoTiempo.classList.add("d-none");
+                    tiempo.value = "0";
+
+                    // Modificar instrucción del comentario
+                    labelComentario.innerHTML = "Estado Real de la Operación <span class='text-accent'>(Obligatorio)</span>:";
+                    comentario.placeholder = "Indique explícitamente en qué tarea se generó la restricción del sistema y qué actividades se ha adelantado o adelantará físicamente en el taller.";
+                    
+                    opcionesQPSuite.forEach(opt => {
+                        tipo_desperdicio.innerHTML += `<option value="${opt}">${opt}</option>`;
+                    });
+                } else {
+                    // Modo Operativo Normal
+                    labelClasificacion.innerText = "Categoría de la Desviación:";
+                    campoSubComponente.classList.remove("d-none");
+                    if(subComponente.value === "No Aplica") subComponente.value = ""; 
+                    
+                    // Alternar a Input de Componentes
+                    componenteSelect.classList.add("d-none");
+                    componenteInput.classList.remove("d-none");
+                    componenteSelect.value = ""; // Limpia la selección del select
+                    
+                    // Mostrar tiempo
+                    campoTiempo.classList.remove("d-none");
+
+                    // Restaurar comentario
+                    labelComentario.innerText = "Detalle Técnico / Observaciones:";
+                    comentario.placeholder = "Describa el contexto operativo y el impacto de la desviación...";
+                    
+                    opcionesEstandar.forEach(opt => {
+                        tipo_desperdicio.innerHTML += `<option value="${opt}">${opt}</option>`;
+                    });
+                }
+            });
+
+            // Lógica para autocompletar OT si no se la entregaron al técnico
+            tipo_desperdicio.addEventListener("change", (e) => {
+                if (e.target.value === "OT no suministrada físicamente por Programación") {
+                    ot.value = "PENDIENTE";
+                    ot.readOnly = true;
+                    ot.classList.add("text-danger");
+                } else {
+                    ot.value = "";
+                    ot.readOnly = false;
+                    ot.classList.remove("text-danger");
+                }
+            });
+
+            // ==========================================
+            // LÓGICA DE VALIDACIÓN Y ENVÍO
+            // ==========================================
+            form.addEventListener("submit", async function (event) {
+                event.preventDefault();
+                let isValid = true; 
+                
+                const validarCampo = (campo, mensaje) => {
+                    if(campo.parentElement.classList.contains("d-none")) {
+                        limpiarError(campo);
+                        return true;
+                    }
+                    if (campo.value.trim() === "") {
+                        mostrarError(campo, mensaje);
+                        return false;
+                    } else {
+                        limpiarError(campo);
+                        return true;
+                    }
+                };
+
+                // Identificar qué campo de componente está activo para validarlo
+                const componenteActivo = servicio.value === "QPSuite" ? componenteSelect : componenteInput;
+
+                if (!validarCampo(servicio, "Parámetro requerido.")) isValid = false;
+                if (!validarCampo(taller, "Parámetro requerido.")) isValid = false;
+                if (!validarCampo(tipo_desperdicio, "Parámetro requerido.")) isValid = false;
+                if (!validarCampo(componenteActivo, "Parámetro requerido.")) isValid = false;
+                if (!validarCampo(subComponente, "Parámetro requerido.")) isValid = false;
+                if (!validarCampo(ot, "Parámetro requerido.")) isValid = false;
+                if (!validarCampo(fecha, "Parámetro requerido.")) isValid = false;
+                
+                // Validación extra: Si es QPSuite, el comentario no puede ir vacío
+                if (servicio.value === "QPSuite" && comentario.value.trim() === "") {
+                    mostrarError(comentario, "Debe especificar el estado físico de la operación.");
+                    isValid = false;
+                } else {
+                    limpiarError(comentario);
+                }
+
+                if (isValid) {
+                    const json = {
+                        servicio: servicio.value,
+                        taller: taller.value,
+                        componente: componenteActivo.value,
+                        subcomponente: subComponente.value,
+                        ot: ot.value.trim().toUpperCase(),
+                        fecha: fecha.value,
+                        comentario: comentario.value,
+                        tipo_desperdicio: tipo_desperdicio.value,
+                        tiempo: tiempo.value || "0",
+                        equipo: inputEquipo.value
+                    };
+                    
+                    btnEnviar.disabled = true;
+                    document.getElementById("spinner").style.display = "inline-block";
+                    
+                    try {
+                        const response = await fetch( "https://defaultc9a8e948bf0d4f8d9e9d551ac1b45a.48.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/27c42dececd441429944ef882dc5d628/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=ckXIqwdMVb_Vgl2h-ufh1NHdeH6_WGrA_KdUZUIPEKA",   
+                            {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify(json)
+                            }
+                        );
+                        
+                        if (!response.ok) throw new Error("Error en servidor");
+                        
+                        Swal.fire({
+                            title: "Transacción Exitosa",
+                            text: "La desviación ha sido documentada en el sistema.",
+                            icon: "success",
+                            confirmButtonColor: "#F57C00",
+                            background: "#1E1E1E",
+                            color: "#fff"
+                        }).then(() => window.location.reload());
+
+                    } catch (error) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error de Conectividad",
+                            text: "No se logró establecer conexión con el servidor. Reintente.",
+                            confirmButtonColor: "#EF5350",
+                            background: "#1E1E1E",
+                            color: "#fff"
+                        });
+                        btnEnviar.disabled = false;
+                        document.getElementById("spinner").style.display = "none";
+                    }
+                }
+            });
+
+            // ==========================================
+            // FUNCIONES VISUALES DE ERROR
+            // ==========================================
+            function mostrarError(input, mensaje) {
+                limpiarError(input);
+                const error = document.createElement("div");
+                error.className = "error-text";
+                error.innerText = mensaje;
+                input.classList.add("is-invalid");
+                input.parentElement.appendChild(error);
+            }
+
+            function limpiarError(input) {
+                input.classList.remove("is-invalid");
+                const errorMensaje = input.parentElement.querySelector(".error-text");
+                if (errorMensaje) errorMensaje.remove();
+            }
+        });
+    </script>
 </body>
 </html>
