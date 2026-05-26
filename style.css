@@ -1,0 +1,130 @@
+:root {
+    /* Paleta inspirada en Cerrejón */
+    --cerrejon-teal: #005C53;
+    --cerrejon-dark: #121A19;
+    --cerrejon-orange: #F57C00;
+    --cerrejon-yellow: #FFB300;
+    
+    --glass-bg: rgba(20, 26, 25, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --text-main: #F8F9FA;
+    --text-muted: #ADB5BD;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-main);
+    min-height: 100vh;
+    /* Aquí llamamos tu imagen. El center/cover evita que se deforme en el celular */
+    background: url('img-background.png') center/cover no-repeat fixed;
+    margin: 0;
+}
+
+/* El overlay oscuro para que el texto siempre sea legible sin importar la foto */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 92, 83, 0.75) 0%, rgba(18, 26, 25, 0.95) 100%);
+    z-index: -1;
+}
+
+/* Estructura del panel de cristal */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+.tracking-wide {
+    letter-spacing: 2px;
+}
+
+.text-accent {
+    color: var(--cerrejon-yellow);
+}
+
+.form-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.requerido::after {
+    content: " •";
+    color: var(--cerrejon-orange);
+    font-size: 1.2rem;
+    line-height: 0;
+    vertical-align: middle;
+}
+
+/* Campos de formulario rediseñados */
+.custom-input, .custom-select {
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    border-radius: 10px;
+    padding: 12px 15px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.custom-input:focus, .custom-select:focus {
+    background-color: rgba(0, 0, 0, 0.6) !important;
+    border-color: var(--cerrejon-orange) !important;
+    box-shadow: 0 0 0 4px rgba(245, 124, 0, 0.15) !important;
+    outline: none;
+}
+
+.custom-input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Fix para que las opciones del select no se vean invisibles en móviles */
+.custom-select option {
+    background-color: var(--cerrejon-dark);
+    color: white;
+    padding: 10px;
+}
+
+/* Botón Principal */
+.btn-primary-custom {
+    background: linear-gradient(135deg, var(--cerrejon-orange), var(--cerrejon-yellow));
+    color: #121A19 !important;
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary-custom:hover, .btn-primary-custom:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(245, 124, 0, 0.4);
+    background: linear-gradient(135deg, #FF8F00, #FFC107);
+}
+
+.btn-primary-custom:disabled {
+    background: #495057;
+    color: #CED4DA !important;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Errores visuales limpios */
+.is-invalid {
+    border-color: #EF5350 !important;
+    box-shadow: 0 0 0 2px rgba(239, 83, 80, 0.2) !important;
+}
+.error-text {
+    color: #EF5350;
+    font-size: 0.8rem;
+    margin-top: 4px;
+    font-weight: 600;
+}
